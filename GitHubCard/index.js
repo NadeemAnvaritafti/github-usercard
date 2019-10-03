@@ -34,24 +34,15 @@ axios.get('https://api.github.com/users/NadeemAnvaritafti')
           user, and adding that card to the DOM.
 */
 
-// let followersArray = [];
+let followersArray2 = [];
 
-// axios.get('https://api.github.com/users/NadeemAnvaritafti/followers')
-// .then(response => {
-//   console.log(response);
-//   response.data.forEach(el => {
-//     followersArray.push(el.login);
-//   });
-// })
-// .catch(error => {
-//   console.log("Error: ", error);
-// });
-
-// console.log(followersArray);
-
-let followersArray = ["lflores0214", "Cireimu", "primelos", "Robert-D-Campbell", "justinwilly"]
- 
-followersArray.forEach(el => {
+axios.get('https://api.github.com/users/NadeemAnvaritafti/followers')
+.then(response => {
+  console.log(response);
+  response.data.forEach(el => {
+    followersArray2.push(el.login);
+  });
+  followersArray2.forEach(el => {
     axios.get(`https://api.github.com/users/${el}`)
   .then(response => {
     console.log(response);
@@ -63,6 +54,32 @@ followersArray.forEach(el => {
     console.log("Error: ", error);
   })
 });
+})
+.catch(error => {
+  console.log("Error: ", error);
+});
+
+console.log(followersArray2);
+
+
+
+
+
+
+// let followersArray = ["lflores0214", "Cireimu", "primelos", "Robert-D-Campbell", "justinwilly"]
+ 
+// followersArray.forEach(el => {
+//     axios.get(`https://api.github.com/users/${el}`)
+//   .then(response => {
+//     console.log(response);
+//     const newCard = cardCreator(response.data);
+//     const cardsDiv = document.querySelector('.cards');
+//     cardsDiv.appendChild(newCard);
+//   })
+//   .catch(error => {
+//     console.log("Error: ", error);
+//   })
+// });
 
 
 
@@ -133,6 +150,12 @@ function cardCreator(object){
   address.style.color = '#2cb5e8';
   address.style.textDecoration = 'none';
   address.style.fontSize = '1.4rem';
+  address.addEventListener('mouseenter', () => {
+    address.style.color = '#9fb8ad';
+  })
+  address.addEventListener('mouseleave', () => {
+    address.style.color = '#2cb5e8';
+  })
 
 
   return card;
